@@ -1,5 +1,7 @@
 # common linux command alternatives
 
+And oneliners, useful for embedded systems where common commands might be missing
+
 ## ls
 
     echo *
