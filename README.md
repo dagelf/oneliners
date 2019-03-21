@@ -12,7 +12,7 @@
     for a in /proc/*/cmdline; do echo -n $a:; cat $a; echo; done
 
 ## latency under load histogram
-	# flood ping troughput = 100 concurrency X 1024 bytes/s = 102 400 b/s = 100K/s =~ 1Mbps
+	# flood ping troughput = 100 concurrency X 1024 bytes/s = 102 400 b/s = 100K/s =~ 1Mbps FD =~ 2Mbps aggregate
 	for a in `seq 1 100`; do ping -c5 -q 192.168.10.1 -s $(( 1024 - 42 )) & done|grep max|cut -d\/ -f5|sort -n|cut -d\. -f1|uniq -c                
 	
 ##  network interface throughput
