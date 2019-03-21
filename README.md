@@ -17,7 +17,7 @@
 	
 ##  network interface throughput
 	I=1 # interval in seconds  
-	DEVICE=$1; OK=0; for FOUND in `grep \: /proc/net/dev | awk -F: '{print $1}'`; do if [ "$DEVICE" = $FOUND ]; thenOK=1; break; fi; done
+	DEVICE=$1; OK=0; for FOUND in `grep \: /proc/net/dev | awk -F: '{print $1}'`; do if [ "$DEVICE" = $FOUND ]; then OK=1; break; fi; done
 	if [ $OK -eq 0 ]; then echo "Device not found. Should be one of these:"; grep ":" /proc/net/dev | awk -F: '{print $1}' | sed s@\ @@g; exit 1; fi
 	while true; do
 	  L=`grep $1 /proc/net/dev | sed s/.*://`;
