@@ -24,7 +24,7 @@
 	  R1=`echo $L | awk '{print $1}'`; T1=`echo $L | awk '{print $9}'`; TOT=$(($R1+$T1))
 	  sleep $I
 	  L=`grep $1 /proc/net/dev | sed s/.*://`;
-	  R2=`echo $L | awk '{print $1}'` T2=`echo $LINE | awk '{print $9}'`;
+	  R2=`echo $L | awk '{print $1}'` T2=`echo $L | awk '{print $9}'`;
 	  SPEED=$((($R2+$T2-$TOT)/$I)); IN=$((($R2-$R1)/$I)); OUT=$((($T2-$T1)/$I))
 	  printf "In: %12i KB/s | Out: %12i KB/s | Total: %12i KB/s\n" $(($IN/1024)) $(($OUT/1024)) $((($IN+$OUT)/1024));
 	done;
