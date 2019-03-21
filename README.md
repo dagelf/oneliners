@@ -1,5 +1,4 @@
-
-# oneliners
+# common linux command alternatives
 
 ## ls
 
@@ -13,8 +12,8 @@
     for a in /proc/*/cmdline; do echo -n $a:; cat $a; echo; done
 
 ## latency under load histogram
-	# flood ping troughput = 100 concurrency X 10240 bytes = 1 024 000
-	for a in `seq 1 100`; do ping -c5 -q 192.168.10.1 -s $(( 10240 - 42 )) & done|grep max|cut -d\/ -f5|sort -n|cut -d\. -f1|uniq -c                
+	# flood ping troughput = 100 concurrency X 1024 bytes = 102 400 b = 100K/s ~ 1Mbps
+	for a in `seq 1 100`; do ping -c5 -q 192.168.10.1 -s $(( 1024 - 42 )) & done|grep max|cut -d\/ -f5|sort -n|cut -d\. -f1|uniq -c                
 	
 ##  network interface throughput
 	I=1 # interval in seconds  
