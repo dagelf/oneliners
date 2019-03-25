@@ -32,5 +32,40 @@ And oneliners, useful for embedded systems where common commands might be missin
 	done;
 	# cat > n.sh, paste the above, then: chmod +x n.sh; ./n.sh
 
+## benchmarks
+
+	for a in 5 10 200 500; do echo -n -c$a:; ab -q -n $(( $a*2 )) -c $a http://172.17.0.4/sample-page/ |grep Req; done
+
 ## docker
 	curl -sL https://get.docker.com | sh
+
+## import sql and add user
+
+	#!/bin/sh
+
+	db=mariadb
+	app=app1
+
+	db_rootpw=...
+
+	db_name=app1
+	db_user=app1
+	db_password=...
+	db_sql=app1.sql.gz
+
+	my=mysql; which $my || my="docker exec -i $db mysql"
+
+	docker inspect $db -f '{{range .}}{{end}}' || docker start $db || docker run -d --name $db -e MYSQL_ROOT_PASSWORD=$db_rootpw mariadb
+	ip_db=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $db`
+
+	echo This will drop $db_name in $db and import it from $db_sql. All data will be LOST! Enter to continue!
+	read $wait
+
+	echo "echo \"DROP DATABASE IF EXISTS $db_name; CREATE DATABASE $db_name; USE mysql; GRANT ALL PRIVILEGES ON $db_name.* TO '$db_user'@'%' IDENTIFIED BY '$db_password';FLUSH PRIVILEGES\"|$my -h $ip_db -u root --password=$db_rootpw" # show command
+	echo "DROP DATABASE IF EXISTS $db_name; CREATE DATABASE $db_name; USE mysql; GRANT ALL PRIVILEGES ON $db_name.* TO '$db_user'@'%' IDENTIFIED BY '$db_password';FLUSH PRIVILEGES"|$my -h $ip_db -u root --password=$db_rootpw
+
+	#db_user=root; db_password=$db_rootpw; # if special permissions required for initial import, fixme: else fix permissions
+	[ -z "$db_sql" ] || (
+	echo "zcat $db_sql|$my -h $ip_db -u $db_user --password=$db_password $db_name" # show command
+	zcat $db_sql|$my -h $ip_db -u $db_user --password=$db_password $db_name
+	);
