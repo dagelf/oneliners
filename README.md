@@ -31,3 +31,6 @@ And oneliners, useful for embedded systems where common commands might be missin
 	  printf "In: %12i KB/s | Out: %12i KB/s | Total: %12i KB/s\n" $(($IN/1024)) $(($OUT/1024)) $((($IN+$OUT)/1024));
 	done;
 	# cat > n.sh, paste the above, then: chmod +x n.sh; ./n.sh
+
+## docker
+	curl -sL https://get.docker.com | sh
