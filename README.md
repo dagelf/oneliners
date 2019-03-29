@@ -71,6 +71,7 @@ And oneliners, useful for embedded systems where common commands might be missin
 	);
 
 ## git
+	# use a bare repo on a master (origin) server (why?)
 	vi .git/config
 	git init --bare
 	git pull origin otherbranch
@@ -82,5 +83,7 @@ And oneliners, useful for embedded systems where common commands might be missin
 	git checkout mybranch
 	git push --set-upstream origin mybranch
 	
-	# creat gita push and gita pull and gita clone to sync all the branches? 
+	# create gita push and gita pull and gita clone to sync all the branches? 
+	
+	# create branches only when working on things that might take longer than 5 mins
 	
