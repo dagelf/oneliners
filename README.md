@@ -69,3 +69,18 @@ And oneliners, useful for embedded systems where common commands might be missin
 	echo "zcat $db_sql|$my -h $ip_db -u $db_user --password=$db_password $db_name" # show command
 	zcat $db_sql|$my -h $ip_db -u $db_user --password=$db_password $db_name
 	);
+
+## git
+	vi .git/config
+	git init --bare
+	git pull origin otherbranch
+	https://stackoverflow.com/questions/10312521/how-to-fetch-all-git-branches
+	
+	git clone url
+	git ls-remote
+	git branch
+	git checkout mybranch
+	git push --set-upstream origin mybranch
+	
+	# creat gita push and gita pull and gita clone to sync all the branches? 
+	
