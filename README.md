@@ -87,3 +87,4 @@ And oneliners, useful for embedded systems where common commands might be missin
 	
 	# create branches only when working on things that might take longer than 5 mins
 	
+	gitk
