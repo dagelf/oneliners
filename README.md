@@ -88,3 +88,9 @@ And oneliners, useful for embedded systems where common commands might be missin
 	# create branches only when working on things that might take longer than 5 mins
 	
 	gitk
+
+## docker
+
+	# find docker path, useful for old dockers where you need to copy files in
+	a=anchor; z=`pwgen 6 1`; docker exec $a touch /$z;sudo find /var/lib/docker/|grep $z|sed s@$z@@;docker exec $a rm /$z
+
