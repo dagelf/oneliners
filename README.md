@@ -113,3 +113,16 @@ And oneliners, useful for embedded systems where common commands might be missin
 	# find docker path, useful for old dockers where you need to copy files in
 	a=anchor; z=`pwgen 6 1`; docker exec $a touch /$z;sudo find /var/lib/docker/|grep $z|sed s@$z@@;docker exec $a rm /$z
 
+## dnsmasq
+
+	# if you're getting "dnsmasq: faile to create listenting socket for port 53: Address already in use"
+	# on Ubuntu or Debian, see the dnsmasq section in https://github.com/dagelf/pi
+	# run a dhcp server in foreground
+	#ifconfig eth0 192.168.1.1
+	dnsmasq -d -i eth0 -F 192.168.1.10,192.168.1.199
+	
+	# and share tftp file
+
+# udhcpc
+	# try to get a new lease... where's the log/cache?
+	udhcpc -f -r192.168.9.43 -i eth0 -R -q
