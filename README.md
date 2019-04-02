@@ -127,3 +127,14 @@ And oneliners, useful for embedded systems where common commands might be missin
 # udhcpc
 	# try to get a new lease... where's the log/cache?
 	udhcpc -f -r192.168.9.43 -i eth0 -R -q
+	
+# display messages (active or executable readme)
+	#!/bin/sh
+	tail -n$(($(cat $0|wc -l)-2)) $0;exit
+	# everything from here on will be displayed
+	# todo: make one that displays with substitutions, and/or a templated version
+	# this is useful for scripts that are not generic enough to just run with parameters
+	# and where some thinking is required
+	
+	
+
