@@ -32,6 +32,25 @@ And oneliners, useful for embedded systems where common commands might be missin
 	done;
 	# cat > n.sh, paste the above, then: chmod +x n.sh; ./n.sh
 
+## ip scan / network scan... aka nmap without nmap and fping without fping
+	# super slow serial
+	for a in `seq 1 254`; do ping -c1 192.168.88.$a > /dev/null && echo $a; done
+
+	# parallel, wrap in $() to hide forking 
+	echo $(for a in `seq 1 254`; do ping -c1 192.168.88.$a > /dev/null && echo $a & done; wait)
+	
+	# echo to a file if you want it in separate lines, and sort the output, so it's sequential
+	rm /tmp/scan; sort -n $(for a in `seq 1 254`; do ping -c1 192.168.88.$a > /dev/null && echo $a >> /tmp/scan & done; wait; echo /tmp/scan)
+	
+	# if cpu can't handle all parallel, just run $p at a time: add -w1 to ping to speed it up to $e/$p seconds worst
+	echo $(n="192.168.1"; b=1; e=254; p=20; while [ $p -gt 0 ]; do c=0; while [ $c -le $(($p-1)) ]; do b=$(($b+1)); ping -w1 -c1 $n.$b > /dev/null && echo $b & c=$(($c+1)); done; wait; [ $(($b+$p)) -gt $e ] && p=$(($e-$b)); done;)
+	
+	# same, but lists in sequence, in separate lines, with full ip addresses
+	rm /tmp/scan; sort -n -t. -k4 $(n="192.168.1"; b=1; e=254; p=20; while [ $p -gt 0 ]; do c=0; while [ $c -le $(($p-1)) ]; do b=$(($b+1)); ping -w1 -c1 $n.$b > /dev/null && echo $n.$b >> /tmp/scan & c=$(($c+1)) ; done; wait; [ $(($b+$p)) -gt $e ] && p=$(($e-$b)); done; echo /tmp/scan)
+		
+## port map
+	nc -zv 192.168.88.1 80-10000
+
 ## benchmarks
 
 	for a in 5 10 200 500; do echo -n -c$a:; ab -q -n $(( $a*2 )) -c $a http://172.17.0.4/sample-page/ |grep Req; done
