@@ -3,9 +3,10 @@
 And oneliners, useful for embedded systems where common commands might be missing
 
 ## ls
-
-    echo *
-    for a in *; do echo $a; done
+	# use shell expansion to list files
+	echo *
+	# list files in separate lines, without ls
+	for a in *; do echo $a; done
 
 ## ps 
 
