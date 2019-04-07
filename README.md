@@ -128,6 +128,27 @@ And oneliners, useful for embedded systems where common commands might be missin
 	# try to get a new lease... where's the log/cache?
 	udhcpc -f -r192.168.9.43 -i eth0 -R -q
 	
+# run a webserver in the current path
+
+	while true ; do nc -l 80 < index.html ; done
+	python -m SimpleHTTPServer 8000
+	php -S 127.0.0.1:8000
+	php artisan serve --host=127.0.0.1 --port=8000
+	python3 -m http.server 8000
+	twistd -n web -p 8000 --path .
+	python -c 'from twisted.web.server import Site; from twisted.web.static import File; from twisted.internet import reactor; reactor.listenTCP(8000, Site(File("."))); reactor.run()'
+	ruby -rwebrick -e'WEBrick::HTTPServer.new(:Port => 8000, :DocumentRoot => Dir.pwd).start'
+	ruby -run -ehttpd . -p8000
+	gem install adsf; adsf -p 8000
+	cpan HTTP::Server::Brick  
+	perl -MHTTP::Server::Brick -e '$s=HTTP::Server::Brick->new(port=>8000); $s->mount("/"=>{path=>"."}); $s->start'
+	npm install -g http-server 
+	http-server -p 8000
+	busybox httpd -f -p 8000
+	webfsd -F -p 8000
+	pip install djangothis; djangothis
+	# more at https://gist.github.com/willurd/5720255
+	
 # display messages (active or executable readme)
 	#!/bin/sh
 	tail -n$(($(cat $0|wc -l)-2)) $0;exit
