@@ -128,7 +128,7 @@ And oneliners, useful for embedded systems where common commands might be missin
 	# try to get a new lease... where's the log/cache?
 	udhcpc -f -r192.168.9.43 -i eth0 -R -q
 	
-# run a webserver in the current path
+# webserver oneliners (run a web server in the current path)
 
 	while true ; do nc -l 80 < index.html ; done
 	python -m SimpleHTTPServer 8000
